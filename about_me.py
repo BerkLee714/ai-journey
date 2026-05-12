@@ -1,6 +1,6 @@
 # My first Python script — November 2026
 
-name = "Jem"
+name = "Berk Lee"
 role = "Supply Chain"
 city = "California"
 excited_about = "everything AI"
@@ -15,7 +15,7 @@ print("By the end of 2026, I want to build and " + want_to_learn + ".")
 
 # Math with variables
 current_year = 2026
-birth_year = 1983  # change to your actual birth year
+birth_year = 1984  # change to your actual birth year
 age = current_year - birth_year
 
 print("I am " + str(age) + " years old.")
