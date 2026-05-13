@@ -3,6 +3,22 @@
 # and prints a summary. 
 
 import csv
+from datetime import datetime, date
+
+# === Function: Parse and calculate days since last contact ===
+
+def days_since_last_contact(last_contact_string):
+    # Step 1: parse string into real date
+    last_contact_date = datetime.strptime(last_contact_string, "%Y-%m-%d").date()
+
+    # Step 2: today's date
+    today = date.today()
+
+    # Step 3: calculate days since last contact
+    days_since_contact = (today - last_contact_date).days
+
+    return days_since_contact 
+
 
 # === Function: generate a personalized greeting based on tier ===
 def make_greeting(name, tier):
@@ -40,12 +56,27 @@ with open("customers.csv", "r") as file:
 
 # Generate and print a greeting for each customer
 print("=== Greetings ===")
+overdue_count = 0
 for customer in customers:
-    greeting = make_greeting(customer["name"], customer["tier"])
-    print(greeting)
-print("")
+    name = customer["name"].strip()
+    tier = customer["tier"].strip()
+    last_contact_string = customer["last_contact"].strip()
 
-print("")
+    greeting = make_greeting(name, tier)
+    days_since_contact = days_since_last_contact(last_contact_string)
+   
+    # Decide the overdue flag
+    if days_since_contact > 30:
+        flag = "⚠️ Overdue"
+        overdue_count += 1
+    else:
+        flag = "✅"
+
+    #print everything together
+    print(greeting)
+    print(f"   (Last contacted {last_contact_string} ({days_since_contact} days ago) {flag}")
+    print("")
+
 print("=== Summary ===")
 
 # === Function: find customers by tier ===
@@ -70,6 +101,7 @@ print("Prospect customers: " + str(tier_counts["Prospect"]))
 
 total = len(customers)  
 print("Total customers: " + str(total))
+print("Overdue customers: " + str(overdue_count))
 
 # # Count days since last contacted for each customer and print summary
 # print("")
