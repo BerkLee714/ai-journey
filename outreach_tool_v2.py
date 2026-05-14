@@ -12,7 +12,7 @@ load_dotenv()
 client = Anthropic()
 MODEL = "claude-sonnet-4-5"
 
-# === Function: days since last contect ===
+# === Function: days since last contact ===
 def days_since_last_contact(last_contact_string):
     last_contact_date = datetime.strptime(last_contact_string, "%Y-%m-%d").date()
     today = date.today()
